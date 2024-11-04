@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, ImageBackground } from 'react-native';
+import InputGoal from './components/InputGoal';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
   const [goals, setGoals] = useState([
@@ -29,61 +31,39 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Ajouter un objectif"
-          value={newGoal}
-          onChangeText={setNewGoal}
+    <ImageBackground
+      source={require('./assets/app-background.jpg')}
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <InputGoal
+          newGoal={newGoal}
+          setNewGoal={setNewGoal}
+          addGoalHandler={addGoalHandler}
         />
-        <Button title="Add" onPress={addGoalHandler} />
+        <FlatList
+          data={goals}
+          renderItem={({ item, index }) => (
+            <GoalItem
+              goal={item}
+              onDelete={() => removeGoalHandler(index)}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
-      <ScrollView>
-        {goals.map((goal, index) => (
-          <View key={index} style={styles.goalItem}>
-            <Text>{goal}</Text>
-            <TouchableOpacity onPress={() => removeGoalHandler(index)}>
-              <Text style={styles.deleteButton}>❌</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover'
+  },
   container: {
     flex: 1,
     padding: 50,
-    backgroundColor: '#fff'
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20
-  },
-  input: {
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    flex: 1,
-    marginRight: 10,
-    padding: 5
-  },
-  goalItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#eee',
-    marginVertical: 5,
-    borderRadius: 5
-  },
-  deleteButton: {
-    color: 'red',
-    fontWeight: 'bold',
-    marginLeft: 10
+    backgroundColor: 'rgba(255, 255, 255, 0.8)'
   }
 });
