@@ -30,6 +30,12 @@ export default function App() {
     setGoals(goals.filter((_, i) => i !== index));
   };
 
+  const updateGoalHandler = (index, updatedGoal) => {
+    const updatedGoals = [...goals];
+    updatedGoals[index] = updatedGoal;
+    setGoals(updatedGoals);
+  };
+
   return (
     <ImageBackground
       source={require('./assets/app-background.jpg')}
@@ -47,6 +53,7 @@ export default function App() {
             <GoalItem
               goal={item}
               onDelete={() => removeGoalHandler(index)}
+              onUpdate={(updatedGoal) => updateGoalHandler(index, updatedGoal)}
             />
           )}
           keyExtractor={(item, index) => index.toString()}
