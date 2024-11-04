@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [goals, setGoals] = useState([
@@ -24,6 +24,10 @@ export default function App() {
     }
   };
 
+  const removeGoalHandler = (index) => {
+    setGoals(goals.filter((_, i) => i !== index));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -37,9 +41,12 @@ export default function App() {
       </View>
       <ScrollView>
         {goals.map((goal, index) => (
-          <Text key={index} style={styles.goalItem}>
-            {goal}
-          </Text>
+          <View key={index} style={styles.goalItem}>
+            <Text>{goal}</Text>
+            <TouchableOpacity onPress={() => removeGoalHandler(index)}>
+              <Text style={styles.deleteButton}>❌</Text>
+            </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
     </View>
@@ -66,8 +73,17 @@ const styles = StyleSheet.create({
     padding: 5
   },
   goalItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 10,
     backgroundColor: '#eee',
-    marginVertical: 5
+    marginVertical: 5,
+    borderRadius: 5
+  },
+  deleteButton: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginLeft: 10
   }
 });
