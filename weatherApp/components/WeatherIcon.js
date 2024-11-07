@@ -9,7 +9,7 @@ export default function WeatherIcon({ iconCode }) {
 
 const styles = StyleSheet.create({
   icon: {
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
   },
 });

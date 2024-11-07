@@ -1,0 +1,150 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: 'transparent',
+  },
+  fullScreenBackground: {
+    width: width,
+    height: height,
+    resizeMode: 'cover',
+    position: 'absolute',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 10,
+  },
+  headerContainer: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+  },
+  condensedRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 30,
+  },
+  condensedText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  condensedTextLarge: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  condensedAQIContainer: {
+    backgroundColor: '#FFA500',
+    borderRadius: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginRight: 10,
+  },
+  condensedAQI: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  weatherCard: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    borderRadius: 15,
+    padding: 20,
+    alignItems: 'center',
+    width: 340,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
+    marginBottom: 20,
+    marginTop: 30,
+  },
+  locationLabel: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '500',
+    marginBottom: 5,
+  },
+  cityName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 18,
+    color: '#D1D1D6',
+    marginTop: 5,
+    textTransform: 'capitalize',
+  },
+  mainTemperature: {
+    fontSize: 52,
+    color: '#FFFFFF',
+    fontWeight: '200',
+  },
+  aqiContainer: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  aqiText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  forecastContainer: {
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+  forecastRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+  },
+  card: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    borderRadius: 8,
+    padding: 10,
+    alignItems: 'center',
+    margin: 5,
+    width: 80,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  condensedCard: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    padding: 12,
+    width: 100,
+    borderRadius: 10,
+  },
+  time: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    marginBottom: 5,
+  },
+  temperature: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginTop: 5,
+  },
+});

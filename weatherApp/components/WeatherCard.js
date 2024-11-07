@@ -1,51 +1,21 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import WeatherIcon from './WeatherIcon';
+import styles from './styles';
 
 export default function WeatherCard({ weather }) {
-  const { name, main, weather: weatherDetails } = weather;
-  const temperature = Math.round(main.temp);
-  const description = weatherDetails[0].description;
-  const icon = weatherDetails[0].icon;
+  const name = weather?.name || 'Données non disponibles';
+  const temperature = weather?.main?.temp !== undefined ? Math.round(weather.main.temp) : '--';
+  const description = weather?.weather?.[0]?.description || 'Description indisponible';
+  const icon = weather?.weather?.[0]?.icon || '01d';
 
   return (
-    <View style={styles.card}>
+    <View style={styles.weatherCard}>
+      <Text style={styles.locationLabel}>Ma localisation</Text>
       <Text style={styles.cityName}>{name}</Text>
       <WeatherIcon iconCode={icon} />
-      <Text style={styles.temperature}>{temperature}°C</Text>
+      <Text style={styles.mainTemperature}>{temperature}°C</Text>
       <Text style={styles.description}>{description}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#4a90e2',
-    borderRadius: 15,
-    padding: 20,
-    alignItems: 'center',
-    width: 300,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-  cityName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 10,
-  },
-  temperature: {
-    fontSize: 42,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  description: {
-    fontSize: 18,
-    color: '#e0e0e0',
-    marginTop: 10,
-    textTransform: 'capitalize',
-  },
-});
