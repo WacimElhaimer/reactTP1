@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as Location from 'expo-location';
+import axios from 'axios';
+import WeatherCard from './components/WeatherCard';
+
+const API_KEY = '8b0bba34696e8ac04f3eac5c3e8a8809';
 
 export default function App() {
   const [location, setLocation] = useState(null);
+  const [weather, setWeather] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
@@ -15,26 +20,36 @@ export default function App() {
       }
 
       try {
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location.coords);
+        let loc = await Location.getCurrentPositionAsync({});
+        setLocation(loc.coords);
+        fetchWeather(loc.coords.latitude, loc.coords.longitude);
       } catch (error) {
         setErrorMsg("Impossible de récupérer la localisation.");
       }
     })();
   }, []);
 
+  const fetchWeather = async (latitude, longitude) => {
+    try {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=fr&appid=${API_KEY}`
+      );
+      setWeather(response.data);
+    } catch (error) {
+      setErrorMsg("Impossible de récupérer les données météo.");
+    }
+  };
+
   return (
     <View style={styles.container}>
       {errorMsg ? (
         <Text style={styles.errorText}>{errorMsg}</Text>
-      ) : location ? (
-        <Text style={styles.locationText}>
-          Latitude : {location.latitude}, Longitude : {location.longitude}
-        </Text>
+      ) : weather ? (
+        <WeatherCard weather={weather} />
       ) : (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
-          <Text>Chargement de la localisation...</Text>
+          <Text>Chargement des données météo...</Text>
         </View>
       )}
     </View>
@@ -52,10 +67,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     margin: 10,
-  },
-  locationText: {
-    fontSize: 16,
-    textAlign: 'center',
   },
   loadingContainer: {
     alignItems: 'center',
